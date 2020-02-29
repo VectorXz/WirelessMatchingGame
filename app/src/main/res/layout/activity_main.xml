@@ -4,15 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="-65dp">
 
-    <TextView
+    <EditText
+        android:id="@+id/usernameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginBottom="65dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/usernameTxt"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="254dp"
+        android:ems="10"
+        android:hint="@string/passwordTxt"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usernameTxt"
+        app:layout_constraintBottom_toTopOf="@+id/usernameField"
+        app:layout_constraintEnd_toEndOf="@id/usernameField"
+        app:layout_constraintStart_toStartOf="@id/usernameField"
+        tools:text="@string/usernameTxt" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/passwordTxt"
+        app:layout_constraintBottom_toTopOf="@+id/passwordField"
+        app:layout_constraintEnd_toEndOf="@+id/passwordField"
+        app:layout_constraintStart_toStartOf="@+id/passwordField"
+        tools:text="@string/passwordTxt" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/loginTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField"
+        tools:text="@string/loginTxt" />
+
+    <Button
+        android:id="@+id/regisBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="@string/registerTxt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/registerTxt" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/noaccTxt"
+        app:layout_constraintBottom_toTopOf="@+id/regisBtn"
+        app:layout_constraintStart_toStartOf="@+id/regisBtn"
+        tools:text="@string/noaccTxt" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:text="Matching Game"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

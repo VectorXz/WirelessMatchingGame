@@ -9,13 +9,13 @@
     tools:layout_editor_absoluteY="-65dp">
 
     <EditText
-        android:id="@+id/usernameField"
+        android:id="@+id/emailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="65dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/usernameTxt"
+        android:hint="@string/emailTxt"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,11 +37,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/usernameTxt"
-        app:layout_constraintBottom_toTopOf="@+id/usernameField"
-        app:layout_constraintEnd_toEndOf="@id/usernameField"
-        app:layout_constraintStart_toStartOf="@id/usernameField"
-        tools:text="@string/usernameTxt" />
+        android:text="@string/emailTxt"
+        app:layout_constraintBottom_toTopOf="@+id/emailField"
+        app:layout_constraintEnd_toEndOf="@id/emailField"
+        app:layout_constraintStart_toStartOf="@id/emailField"
+        tools:text="@string/emailTxt" />
 
     <TextView
         android:id="@+id/textView2"

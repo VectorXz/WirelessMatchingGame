@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "42156435480",
+    "firebase_url": "https://wirelessmatchinggame.firebaseio.com",
+    "project_id": "wirelessmatchinggame",
+    "storage_bucket": "wirelessmatchinggame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42156435480:android:7730e2c2953fa149573b6d",
+        "android_client_info": {
+          "package_name": "com.example.wirelessmatchinggame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42156435480-m5o69qo88josrl6c45stenrgn9hlee4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfEFDVMr1IMmd5xwpZCp84y6ENis0Fbw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42156435480-m5o69qo88josrl6c45stenrgn9hlee4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

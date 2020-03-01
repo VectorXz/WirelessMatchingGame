@@ -3,7 +3,6 @@ package com.example.wirelessmatchinggame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -20,16 +19,16 @@ class MainActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        val regisBtn: Button = findViewById<Button>(R.id.regisBtn)
-        val loginBtn: Button = findViewById<Button>(R.id.loginBtn)
+        val regisBtn: Button = findViewById<Button>(R.id.login_regisBtn)
+        val loginBtn: Button = findViewById<Button>(R.id.login_loginBtn)
 
         regisBtn.setOnClickListener{
             openRegisterView()
         }
 
         loginBtn.setOnClickListener{
-            val email = emailField.text.toString()
-            val password = passwordField.text.toString()
+            val email = login_emailField.text.toString()
+            val password = login_passwordField.text.toString()
             login(email, password)
         }
     }
@@ -48,23 +47,28 @@ class MainActivity : AppCompatActivity() {
         startActivity(regisIntent)
     }
 
+    fun loginValidation(email: String, password: String): Boolean {
+        if(email.length <= 0) {
+            Toast.makeText(this, "Please input email", Toast.LENGTH_SHORT).show()
+            login_emailField.requestFocus()
+            return false
+        } else if(password.length <= 0) {
+            Toast.makeText(this, "Please input password", Toast.LENGTH_SHORT).show()
+            login_passwordField.requestFocus()
+            return false
+        }
+        return true
+    }
+
     fun login(email: String, password: String) {
 
-        if(email.length <= 0 || password.length <= 0) {
-            var errorMsg = "Please input";
-            if (email.length <= 0) {
-                errorMsg = errorMsg + " email"
-            }
-            if (password.length <= 0) {
-                errorMsg = errorMsg + " Password"
-            }
-            Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
-        } else {
+        if(loginValidation(email, password)) {
             // [START sign_in_with_email]
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         //TODO Login success -> Redirect to game page
+                        Toast.makeText(this, "Authentication success!", Toast.LENGTH_SHORT).show()
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(this, "Authentication failed!", Toast.LENGTH_SHORT).show()

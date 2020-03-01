@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="-65dp">
 
     <EditText
-        android:id="@+id/emailField"
+        android:id="@+id/login_emailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="65dp"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/passwordField"
+        android:id="@+id/login_passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="254dp"
@@ -38,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/emailTxt"
-        app:layout_constraintBottom_toTopOf="@+id/emailField"
-        app:layout_constraintEnd_toEndOf="@id/emailField"
-        app:layout_constraintStart_toStartOf="@id/emailField"
+        app:layout_constraintBottom_toTopOf="@+id/login_emailField"
+        app:layout_constraintEnd_toEndOf="@id/login_emailField"
+        app:layout_constraintStart_toStartOf="@id/login_emailField"
         tools:text="@string/emailTxt" />
 
     <TextView
@@ -48,24 +48,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/passwordTxt"
-        app:layout_constraintBottom_toTopOf="@+id/passwordField"
-        app:layout_constraintEnd_toEndOf="@+id/passwordField"
-        app:layout_constraintStart_toStartOf="@+id/passwordField"
+        app:layout_constraintBottom_toTopOf="@+id/login_passwordField"
+        app:layout_constraintEnd_toEndOf="@+id/login_passwordField"
+        app:layout_constraintStart_toStartOf="@+id/login_passwordField"
         tools:text="@string/passwordTxt" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/login_loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/loginTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/login_passwordField"
         tools:text="@string/loginTxt" />
 
     <Button
-        android:id="@+id/regisBtn"
+        android:id="@+id/login_regisBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
@@ -82,8 +82,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:text="@string/noaccTxt"
-        app:layout_constraintBottom_toTopOf="@+id/regisBtn"
-        app:layout_constraintStart_toStartOf="@+id/regisBtn"
+        app:layout_constraintBottom_toTopOf="@+id/login_regisBtn"
+        app:layout_constraintStart_toStartOf="@+id/login_regisBtn"
         tools:text="@string/noaccTxt" />
 
     <TextView

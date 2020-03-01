@@ -3,10 +3,15 @@ package com.example.wirelessmatchinggame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import kotlinx.android.synthetic.main.activity_main.*
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if(currentUser != null) {
             //TODO Switch to game page
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
         }
     }
 
@@ -69,16 +76,19 @@ class MainActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         //TODO Login success -> Redirect to game page
                         Toast.makeText(this, "Authentication success!", Toast.LENGTH_SHORT).show()
+                        val homeIntent = Intent(this, HomeActivity::class.java)
+                        startActivity(homeIntent)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(this, "Authentication failed!", Toast.LENGTH_SHORT).show()
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        if(task.exception is FirebaseAuthInvalidCredentialsException) {
+                            Toast.makeText(this, "Authentication failed : Invalid password!", Toast.LENGTH_SHORT).show()
+                        } else if (task.exception is FirebaseAuthInvalidUserException) {
+                            Toast.makeText(this, "Authentication failed : Account does not exists!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Authentication failed!", Toast.LENGTH_SHORT).show()
+                        }
                     }
-
-                    // [START_EXCLUDE]
-                    if (!task.isSuccessful) {
-                        Toast.makeText(this, "System error, please contact admin.", Toast.LENGTH_SHORT).show()
-                    }
-                    // [END_EXCLUDE]
                 }
             // [END sign_in_with_email]
         }

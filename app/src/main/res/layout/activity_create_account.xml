@@ -14,6 +14,8 @@
         android:ems="10"
         android:hint="Confirm your password"
         android:inputType="textPassword"
+        android:background="@drawable/edittext_rounded_corners"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -37,6 +39,8 @@
         android:ems="10"
         android:hint="Your password"
         android:inputType="textPassword"
+        android:background="@drawable/edittext_rounded_corners"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -97,15 +101,19 @@
         android:ems="10"
         android:hint="email@example.com"
         android:inputType="textPersonName"
+        android:background="@drawable/edittext_rounded_corners"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <Button
         android:id="@+id/regis_regisBtn"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
+        android:background="#F9A602"
         android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

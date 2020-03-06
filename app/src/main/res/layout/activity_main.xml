@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAE7CE"
     tools:context=".MainActivity"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="-65dp">
@@ -14,8 +15,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:autofillHints=""
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:hint="@string/emailTxt"
+        android:padding="10dp"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +31,8 @@
         android:layout_marginBottom="196dp"
         android:ems="10"
         android:hint="@string/passwordTxt"
+        android:background="@drawable/edittext_rounded_corners"
+        android:padding="10dp"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,9 +42,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="@string/emailTxt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_emailField"
         app:layout_constraintEnd_toEndOf="@id/login_emailField"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/login_emailField"
         tools:text="@string/emailTxt" />
 
@@ -47,17 +55,22 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="@string/passwordTxt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_passwordField"
         app:layout_constraintEnd_toEndOf="@+id/login_passwordField"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/login_passwordField"
         tools:text="@string/passwordTxt" />
 
     <Button
         android:id="@+id/login_loginBtn"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:backgroundTint="#1fcecb"
         android:text="@string/loginTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -69,10 +82,13 @@
         android:id="@+id/login_regisBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#F9A602"
         android:text="@string/registerTxt"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/registerTxt" />
 
@@ -83,32 +99,23 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:text="@string/noaccTxt"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_regisBtn"
         app:layout_constraintStart_toStartOf="@+id/login_regisBtn"
         tools:text="@string/noaccTxt" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Matching Game"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.78"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/matching_game_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        /* CHECK LOGGED IN YET ? */
         auth = FirebaseAuth.getInstance()
 
         val user = auth.currentUser
@@ -25,13 +26,39 @@ class HomeActivity : AppCompatActivity() {
             startActivity(mainIntent)
         }
 
+        /* GET CURRENT LOGIN USER EMAIL */
+
         val currentUser = auth.currentUser?.email
+        val userTxt = findViewById<TextView>(R.id.textView10)
+        userTxt.text = currentUser.toString()
+
+        /* NAVIGATION CODE */
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         bottomNavigationView.menu.getItem(1).isChecked = true
 
-        val userTxt = findViewById<TextView>(R.id.textView10)
-        userTxt.text = currentUser.toString()
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_account -> {
+                    // do this event
+                    val accountIntent = Intent(this, ManageAccount::class.java)
+                    startActivity(accountIntent)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_home -> {
+                    // do this event
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_stats -> {
+                    // do this event
+                    val statsIntent = Intent(this, ViewStatistics::class.java)
+                    startActivity(statsIntent)
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
+
     }
 }

@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 class ManageAccount : AppCompatActivity() {
@@ -14,6 +16,7 @@ class ManageAccount : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_account)
 
+        /* CHECK LOGGED IN YET ? */
         auth = FirebaseAuth.getInstance()
 
         val user = auth.currentUser
@@ -23,18 +26,32 @@ class ManageAccount : AppCompatActivity() {
             startActivity(mainIntent)
         }
 
-        val accountBtn: Button = findViewById<Button>(R.id.nav_account)
+        /* NAVIGATION CODE */
 
-        accountBtn.setOnClickListener {
-            val accountIntent = Intent(this, CreateAccount::class.java)
-            startActivity(accountIntent)
-        }
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        val statsBtn: Button = findViewById<Button>(R.id.nav_stats)
+        bottomNavigationView.menu.getItem(0).isChecked = true
 
-        accountBtn.setOnClickListener {
-            val statsIntent = Intent(this, ViewStatistics::class.java)
-            startActivity(statsIntent)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_account -> {
+                    // do this event
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_home -> {
+                    // do this event
+                    val homeIntent = Intent(this, HomeActivity::class.java)
+                    startActivity(homeIntent)
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_stats -> {
+                    // do this event
+                    val statsIntent = Intent(this, ViewStatistics::class.java)
+                    startActivity(statsIntent)
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
         }
 
     }

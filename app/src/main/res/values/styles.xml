@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BottomNavMenu" parent="Theme.MaterialComponents">
+        <item name="itemIconTint">@color/bottom_navigation_colors</item>
+        <item name="itemTextColor">@color/bottom_navigation_colors</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>

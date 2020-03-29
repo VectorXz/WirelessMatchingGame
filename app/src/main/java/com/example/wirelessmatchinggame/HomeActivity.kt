@@ -1,10 +1,12 @@
 package com.example.wirelessmatchinggame
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -16,12 +18,20 @@ class HomeActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        val signOutBtn: Button = findViewById<Button>(R.id.home_signOutBtn)
+        val user = auth.currentUser
 
-        signOutBtn.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val loginIntent = Intent(this, MainActivity::class.java)
-            startActivity(loginIntent)
+        if(user == null) {
+            val mainIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainIntent)
         }
+
+        val currentUser = auth.currentUser?.email
+
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        bottomNavigationView.menu.getItem(1).isChecked = true
+
+        val userTxt = findViewById<TextView>(R.id.textView10)
+        userTxt.text = currentUser.toString()
     }
 }

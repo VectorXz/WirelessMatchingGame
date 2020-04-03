@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewStatistics"></activity>
+        <activity android:name=".MatchingGame"></activity>
+        <activity android:name=".ViewStatistics" />
         <activity android:name=".ManageAccount" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".CreateAccount" />

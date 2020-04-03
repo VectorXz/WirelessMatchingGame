@@ -8,7 +8,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -24,15 +25,145 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="236dp"
-                android:text="ManageAccount"
+            <EditText
+                android:id="@+id/edit_cfnewpassfield"
+                android:layout_width="357dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="Confirm New password"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_rounded_corners"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_cfnewpasstxt" />
+
+            <TextView
+                android:id="@+id/edit_cfnewpasstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="Confirm New Password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.092"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_newpassfield" />
+
+            <EditText
+                android:id="@+id/edit_newpassfield"
+                android:layout_width="357dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="New password"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_rounded_corners"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_newpasstxt" />
+
+            <TextView
+                android:id="@+id/edit_newpasstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="New Password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.092"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_passwordField" />
+
+            <EditText
+                android:id="@+id/edit_passwordField"
+                android:layout_width="357dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="Old password"
+                android:inputType="textPassword"
+                android:background="@drawable/edittext_rounded_corners"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_passwordtxt" />
+
+            <TextView
+                android:id="@+id/edit_passwordtxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="Old Password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.077"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_emailField" />
+
+            <TextView
+                android:id="@+id/edit_headtxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Edit Account"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/edit_emailtxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="Email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.071"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_emailField"
+                android:layout_width="357dp"
+                android:layout_height="47dp"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:background="@drawable/edittext_rounded_corners"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_emailtxt"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/edit_updateBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#F9A602"
+                android:text="Update"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.089"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_cfnewpassfield"
+                app:layout_constraintVertical_bias="0.12"/>
+
+            <Button
+                android:id="@+id/edit_logoutBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#C70039"
+                android:text="LOG OUT"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.891"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_cfnewpassfield"
+                app:layout_constraintVertical_bias="0.12" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>

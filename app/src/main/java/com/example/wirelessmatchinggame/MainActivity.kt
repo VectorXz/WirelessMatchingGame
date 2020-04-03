@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -56,12 +57,24 @@ class MainActivity : AppCompatActivity() {
 
     fun loginValidation(email: String, password: String): Boolean {
         if(email.length <= 0) {
-            Toast.makeText(this, "Please input email", Toast.LENGTH_SHORT).show()
-            login_emailField.requestFocus()
+            val builder = AlertDialog.Builder(this@MainActivity)
+            builder.setTitle("Login")
+            builder.setMessage("Please input email!")
+            builder.setPositiveButton("OK"){dialogInterface, which ->
+                login_emailField.requestFocus()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
             return false
         } else if(password.length <= 0) {
-            Toast.makeText(this, "Please input password", Toast.LENGTH_SHORT).show()
-            login_passwordField.requestFocus()
+            val builder = AlertDialog.Builder(this@MainActivity)
+            builder.setTitle("Login")
+            builder.setMessage("Please input password!")
+            builder.setPositiveButton("OK"){dialogInterface, which ->
+                login_passwordField.requestFocus()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
             return false
         }
         return true
@@ -75,18 +88,45 @@ class MainActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         //TODO Login success -> Redirect to game page
-                        Toast.makeText(this, "Authentication success!", Toast.LENGTH_SHORT).show()
-                        val homeIntent = Intent(this, HomeActivity::class.java)
-                        startActivity(homeIntent)
+                        val builder = AlertDialog.Builder(this@MainActivity)
+                        builder.setTitle("Login")
+                        builder.setMessage("Authentication success!")
+                        builder.setPositiveButton("OK"){dialogInterface, which ->
+                            val homeIntent = Intent(this, HomeActivity::class.java)
+                            startActivity(homeIntent)
+                        }
+                        val alertDialog: AlertDialog = builder.create()
+                        alertDialog.show()
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         if(task.exception is FirebaseAuthInvalidCredentialsException) {
-                            Toast.makeText(this, "Authentication failed : Invalid password!", Toast.LENGTH_SHORT).show()
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Login")
+                            builder.setMessage("Authentication Failed : Invalid Password!")
+                            builder.setPositiveButton("OK"){dialogInterface, which ->
+                                login_passwordField.requestFocus()
+                            }
+                            val alertDialog: AlertDialog = builder.create()
+                            alertDialog.show()
                         } else if (task.exception is FirebaseAuthInvalidUserException) {
-                            Toast.makeText(this, "Authentication failed : Account does not exists!", Toast.LENGTH_SHORT).show()
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Login")
+                            builder.setMessage("Authentication Failed : Account does not exists!")
+                            builder.setPositiveButton("OK"){dialogInterface, which ->
+                                login_emailField.requestFocus()
+                            }
+                            val alertDialog: AlertDialog = builder.create()
+                            alertDialog.show()
                         } else {
-                            Toast.makeText(this, "Authentication failed!", Toast.LENGTH_SHORT).show()
+                            val builder = AlertDialog.Builder(this@MainActivity)
+                            builder.setTitle("Login")
+                            builder.setMessage("Authentication Failed!")
+                            builder.setPositiveButton("OK"){dialogInterface, which ->
+                                login_emailField.requestFocus()
+                            }
+                            val alertDialog: AlertDialog = builder.create()
+                            alertDialog.show()
                         }
                     }
                 }

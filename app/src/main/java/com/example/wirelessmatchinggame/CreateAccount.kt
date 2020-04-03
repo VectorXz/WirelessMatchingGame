@@ -1,15 +1,19 @@
 package com.example.wirelessmatchinggame
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_create_account.*
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 private const val TAG = "CreateAccount"
 
@@ -44,17 +48,41 @@ class CreateAccount : AppCompatActivity() {
 
     fun registerValidation(email: String, password: String, confirmPass: String) {
         if(email.length <= 0) {
-            Toast.makeText(this, "Please input email", Toast.LENGTH_SHORT).show()
-            regis_emailField.requestFocus()
+            val builder = AlertDialog.Builder(this@CreateAccount)
+            builder.setTitle("Register")
+            builder.setMessage("Please input email!")
+            builder.setPositiveButton("OK"){dialogInterface, which ->
+                regis_emailField.requestFocus()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
         } else if (password.length <= 0) {
-            Toast.makeText(this, "Please input password", Toast.LENGTH_SHORT).show()
-            regis_passwordField.requestFocus()
+            val builder = AlertDialog.Builder(this@CreateAccount)
+            builder.setTitle("Register")
+            builder.setMessage("Please input password!")
+            builder.setPositiveButton("OK"){dialogInterface, which ->
+                regis_passwordField.requestFocus()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
         } else if (confirmPass.length <= 0) {
-            Toast.makeText(this, "Please input confirm pass", Toast.LENGTH_SHORT).show()
-            regis_confirmPassField.requestFocus()
+            val builder = AlertDialog.Builder(this@CreateAccount)
+            builder.setTitle("Register")
+            builder.setMessage("Please input confirm password!")
+            builder.setPositiveButton("OK"){dialogInterface, which ->
+                regis_confirmPassField.requestFocus()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
         } else if (!password.equals(confirmPass)) {
-            Toast.makeText(this, "Confirmation password mismatch!", Toast.LENGTH_SHORT).show()
-            regis_confirmPassField.requestFocus()
+            val builder = AlertDialog.Builder(this@CreateAccount)
+            builder.setTitle("Register")
+            builder.setMessage("Password mismatch!")
+            builder.setPositiveButton("OK"){dialogInterface, which ->
+                regis_confirmPassField.requestFocus()
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
         }
         else {
             createAccount(email, password)
@@ -67,16 +95,36 @@ class CreateAccount : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
-                    //TODO redirect to login page
-                    val loginIntent = Intent(this, MainActivity::class.java)
-                    startActivity(loginIntent)
+                    val builder = AlertDialog.Builder(this@CreateAccount)
+                    builder.setTitle("Register")
+                    builder.setMessage("Registration successful!")
+                    builder.setPositiveButton("OK"){dialogInterface, which ->
+                        //TODO redirect to login page
+                        val loginIntent = Intent(this, MainActivity::class.java)
+                        startActivity(loginIntent)
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
                 } else {
                     Log.w(TAG, "createAccountWithEmail:failure", task.exception)
                     if(task.exception is FirebaseAuthWeakPasswordException) {
-                        Toast.makeText(this, "Registration failed : Weak password used! Please input more than 6 characters!", Toast.LENGTH_SHORT).show()
+                        val builder = AlertDialog.Builder(this@CreateAccount)
+                        builder.setTitle("Register")
+                        builder.setMessage("Registration failed : Weak password used! Please input more than 6 characters!")
+                        builder.setPositiveButton("OK"){dialogInterface, which ->
+                            regis_passwordField.requestFocus()
+                        }
+                        val alertDialog: AlertDialog = builder.create()
+                        alertDialog.show()
                     } else {
-                        Toast.makeText(this, "Registration failed : Weak password used!", Toast.LENGTH_SHORT).show()
+                        val builder = AlertDialog.Builder(this@CreateAccount)
+                        builder.setTitle("Register")
+                        builder.setMessage("Registration failed!")
+                        builder.setPositiveButton("OK"){dialogInterface, which ->
+                            regis_emailField.requestFocus()
+                        }
+                        val alertDialog: AlertDialog = builder.create()
+                        alertDialog.show()
                     }
                 }
 

@@ -2,6 +2,7 @@ package com.example.wirelessmatchinggame
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,6 +32,14 @@ class HomeActivity : AppCompatActivity() {
         val currentUser = auth.currentUser?.email
         val userTxt = findViewById<TextView>(R.id.textView10)
         userTxt.text = currentUser.toString()
+
+        /* START GAME BUTTON */
+
+        val startGameBtn: Button = findViewById(R.id.home_startGameBtn)
+        startGameBtn.setOnClickListener {
+            val selectImageIntent = Intent(this, SelectImageLanding::class.java)
+            startActivity(selectImageIntent)
+        }
 
         /* NAVIGATION CODE */
 

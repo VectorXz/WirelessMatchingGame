@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestShowImage"></activity>
+
+        <activity android:name=".MatchingGame" />
+        <activity android:name=".TestShowImage" />
         <activity android:name=".SelectImageLanding" />
         <activity android:name=".ViewStatistics" />
         <activity android:name=".ManageAccount" />

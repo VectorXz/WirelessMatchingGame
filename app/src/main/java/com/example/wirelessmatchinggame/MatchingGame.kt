@@ -1,15 +1,34 @@
 package com.example.wirelessmatchinggame
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import android.os.CountDownTimer
+import androidx.appcompat.app.AppCompatActivity
 import com.example.wirelessmatchinggame.R.drawable.*
 import kotlinx.android.synthetic.main.activity_matching_game.*
 
+
 class MatchingGame : AppCompatActivity() {
+
+    enum class TimerState{
+        Stopped, Running
+    }
+
+    private lateinit var timer: CountDownTimer
+    private var timerLengthSeconds = 0L
+    private var timerState = TimerState.Stopped
+    private var secondsRemaining = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_matching_game)
+
+        startButton.setOnClickListener{ v ->
+            startTimer()
+            timerState = TimerState.Running
+            updateButtons()
+            updateCountdownUI()
+        }
 
         val images: MutableList<Int> =
             mutableListOf(test1, test2, test3, test1, test2, test3)
@@ -53,6 +72,44 @@ class MatchingGame : AppCompatActivity() {
                 } else if (clicked == 0) {
                     turnOver = false
                 }
+            }
+        }
+    }
+
+    private fun onTimerFinished(){
+        timerState = TimerState.Stopped
+        secondsRemaining = timerLengthSeconds
+    }
+
+    private fun startTimer(){
+        timerState = TimerState.Running
+        timer = object : CountDownTimer(secondsRemaining*1000, 1000){
+            override fun onFinish() = onTimerFinished()
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsRemaining = millisUntilFinished/1000
+                updateCountdownUI()
+            }
+        }.start()
+    }
+
+    private fun updateCountdownUI(){
+        val minutesUntilFinished = secondsRemaining/60
+        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
+        val secondsStr = secondsInMinuteUntilFinished.toString()
+        textViewCountdown.text = "$minutesUntilFinished:${
+        if(secondsStr.length == 2) secondsStr
+        else "0"+secondsStr}"
+        progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
+    }
+
+    private fun updateButtons(){
+        when (timerState){
+            TimerState.Running->{
+                startButton.isEnabled = false
+            }
+            TimerState.Stopped->{
+                startButton.isEnabled = true
             }
         }
     }

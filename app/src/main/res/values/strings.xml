@@ -5,4 +5,6 @@
     <string name="loginTxt">Login</string>
     <string name="registerTxt">Register</string>
     <string name="noaccTxt">No account?</string>
+    <string name="from_gallery">From Gallery</string>
+    <string name="from_camera">From Camera</string>
 </resources>

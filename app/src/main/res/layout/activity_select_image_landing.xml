@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectImageLanding">
+    tools:context=".SelectImageLanding"
+    android:focusableInTouchMode="true">
 
     <TextView
         android:id="@+id/textView12"
@@ -19,30 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:text="@string/from_gallery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/from_gallery" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/from_camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:text="@string/from_camera" />
-
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
@@ -51,20 +28,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.059" />
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintVertical_bias="0.035" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="288dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/textView14">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,21 +52,36 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView16"
+                    android:id="@+id/imgThumb1"
                     android:layout_width="400px"
                     android:layout_height="300px"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
                 <EditText
-                    android:id="@+id/editText4"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtImg1"
+                    android:layout_width="152dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
+                    android:hint="What's it ?"
                     android:textAlignment="textStart" />
+
+                <ImageButton
+                    android:id="@+id/camBtn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+
+                <ImageButton
+                    android:id="@+id/gallBtn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_image_black_24dp" />
+
             </LinearLayout>
 
             <Space
@@ -106,20 +95,35 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView15"
+                    android:id="@+id/imgThumb2"
                     android:layout_width="400px"
                     android:layout_height="300px"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
                 <EditText
-                    android:id="@+id/editText5"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtImg2"
+                    android:layout_width="152dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="What's it ?"
+                    android:textAlignment="textStart" />
+
+                <ImageButton
+                    android:id="@+id/camBtn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+
+                <ImageButton
+                    android:id="@+id/gallBtn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_image_black_24dp" />
             </LinearLayout>
 
             <Space
@@ -133,20 +137,35 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView17"
+                    android:id="@+id/imgThumb3"
                     android:layout_width="400px"
                     android:layout_height="300px"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
                 <EditText
-                    android:id="@+id/editText6"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtImg3"
+                    android:layout_width="152dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name" />
+                    android:hint="What's it ?"
+                    android:textAlignment="textStart" />
+
+                <ImageButton
+                    android:id="@+id/camBtn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+
+                <ImageButton
+                    android:id="@+id/gallBtn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_image_black_24dp" />
             </LinearLayout>
 
         </LinearLayout>

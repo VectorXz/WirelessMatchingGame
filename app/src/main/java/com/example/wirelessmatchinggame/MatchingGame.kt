@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.example.wirelessmatchinggame.R.drawable.defaultpic
 import kotlinx.android.synthetic.main.activity_matching_game.*
+import java.util.Collections.addAll
 
 
 class MatchingGame : AppCompatActivity() {
@@ -63,6 +64,19 @@ class MatchingGame : AppCompatActivity() {
         var flipNo = 0
 
         images.shuffle()
+
+        val Texts: MutableList<String> = mutableListOf()
+        for(i in 0..5) {
+            when(images[i]) {
+                bitmap1-> Texts.add(i, intent.getStringExtra("txtImg1"))
+                bitmap2-> Texts.add(i, intent.getStringExtra("txtImg2"))
+                bitmap3-> Texts.add(i, intent.getStringExtra("txtImg3"))
+            }
+        }
+
+        Log.d("Texts", ">> "+Texts)
+        Log.d("Img", ">> "+images)
+
         for(i in 0..5){
             buttons[i].setBackgroundResource(cardBack)
             buttons[i].text = "cardBack"
@@ -97,6 +111,7 @@ class MatchingGame : AppCompatActivity() {
                             Log.d("GAME STATUS", "ENDED")
                             timer.cancel()
                         }
+                        //TODO Alert dialog for user to input vocab (get from intent stated in Texts variable)
                     } else {
                         //auto close card
                         Handler().postDelayed(Runnable {

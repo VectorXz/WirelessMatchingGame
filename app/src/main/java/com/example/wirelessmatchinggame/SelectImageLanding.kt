@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Images
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -63,6 +64,15 @@ class SelectImageLanding : AppCompatActivity() {
             showIntent.putExtra("imgThumb1", imgPath1.toString())
             showIntent.putExtra("imgThumb2", imgPath2.toString())
             showIntent.putExtra("imgThumb3", imgPath3.toString())
+
+            val txtImg1 = findViewById<EditText>(R.id.txtImg1)
+            val txtImg2 = findViewById<EditText>(R.id.txtImg2)
+            val txtImg3 = findViewById<EditText>(R.id.txtImg3)
+
+            showIntent.putExtra("txtImg1", txtImg1.text.toString())
+            showIntent.putExtra("txtImg2", txtImg2.text.toString())
+            showIntent.putExtra("txtImg3", txtImg3.text.toString())
+
             startActivity(showIntent)
         }
 

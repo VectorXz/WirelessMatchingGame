@@ -1,10 +1,19 @@
 package com.example.wirelessmatchinggame
 
+import android.R.attr.bitmap
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.widget.TextView
 import android.os.CountDownTimer
+import android.os.Handler
+import android.provider.MediaStore
+import android.util.Log
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.wirelessmatchinggame.R.drawable.*
+import androidx.core.net.toUri
+import com.example.wirelessmatchinggame.R.drawable.defaultpic
 import kotlinx.android.synthetic.main.activity_matching_game.*
 
 
@@ -15,9 +24,9 @@ class MatchingGame : AppCompatActivity() {
     }
 
     private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds = 0L
+    private var timerLengthSeconds = 120L
     private var timerState = TimerState.Stopped
-    private var secondsRemaining = 0L
+    private var secondsRemaining = 120L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +39,19 @@ class MatchingGame : AppCompatActivity() {
             updateCountdownUI()
         }
 
-        val images: MutableList<Int> =
-            mutableListOf(test1, test2, test3, test1, test2, test3)
+        val image1 = intent.getStringExtra("imgThumb1")
+        val image2 = intent.getStringExtra("imgThumb2")
+        val image3 = intent.getStringExtra("imgThumb3")
+
+        Log.d("[IMAGE 1]", ">> "+image1)
+        Log.d("[IMAGE 2]", ">> "+image2)
+        Log.d("[IMAGE 3]", ">> "+image3)
+
+        val bitmap1 = MediaStore.Images.Media.getBitmap(this.contentResolver, image1.toUri())
+        val bitmap2 = MediaStore.Images.Media.getBitmap(this.contentResolver, image2.toUri())
+        val bitmap3 = MediaStore.Images.Media.getBitmap(this.contentResolver, image3.toUri())
+
+        val images: MutableList<Bitmap> = mutableListOf(bitmap1, bitmap2, bitmap3, bitmap1, bitmap2, bitmap3)
 
         val buttons = arrayOf(button1, button2, button3, button4, button5, button6)
 
@@ -40,20 +60,25 @@ class MatchingGame : AppCompatActivity() {
         var turnOver = false
         var lastClicked = -1
         var count = 0
+        var flipNo = 0
 
         images.shuffle()
         for(i in 0..5){
             buttons[i].setBackgroundResource(cardBack)
             buttons[i].text = "cardBack"
-            buttons[i].textSize = 0.0F
+            buttons[i].textSize = 0F
             buttons[i].setOnClickListener {
-                if (buttons[i].text == "cardBack" && !turnOver) {
-                    buttons[i].setBackgroundResource(images[i])
-                    buttons[i].setText(images[i])
+                if (buttons[i].text == "cardBack" && !turnOver && timerState == TimerState.Running) {
+                    buttons[i].setBackground(BitmapDrawable(getResources(), images[i]))
+                    buttons[i].setText(images[i].toString())
                     if (clicked == 0) {
                         lastClicked = i
                     }
                     clicked++
+                    flipNo++
+                    Log.d("Flip count", "COUNT : "+flipNo)
+                    val countNoTxt = findViewById<TextView>(R.id.countNoTxt)
+                    countNoTxt.text = flipNo.toString()
                 } else if (buttons[i].text !in "cardBack") {
                     buttons[i].setBackgroundResource(cardBack)
                     buttons[i].text = "cardBack"
@@ -68,6 +93,20 @@ class MatchingGame : AppCompatActivity() {
                         buttons[lastClicked].isClickable = false
                         turnOver = false
                         clicked = 0
+                        if(count == 3) {
+                            Log.d("GAME STATUS", "ENDED")
+                            timer.cancel()
+                        }
+                    } else {
+                        //auto close card
+                        Handler().postDelayed(Runnable {
+                            buttons[i].setBackgroundResource(cardBack)
+                            buttons[i].text = "cardBack"
+                            buttons[lastClicked].setBackgroundResource(cardBack)
+                            buttons[lastClicked].text = "cardBack"
+                            clicked = 0
+                            turnOver = false
+                        }, 800)
                     }
                 } else if (clicked == 0) {
                     turnOver = false
@@ -77,19 +116,26 @@ class MatchingGame : AppCompatActivity() {
     }
 
     private fun onTimerFinished(){
+        val TimerTxt = findViewById<TextView>(R.id.textViewCountdown)
+        TimerTxt.setText("0:00")
+        val progressBar = findViewById<ProgressBar>(R.id.progress_countdown)
+        progressBar.progress = 0
         timerState = TimerState.Stopped
         secondsRemaining = timerLengthSeconds
     }
 
     private fun startTimer(){
         timerState = TimerState.Running
-        timer = object : CountDownTimer(secondsRemaining*1000, 1000){
+        timer = object : CountDownTimer(secondsRemaining*1000, 100){
             override fun onFinish() = onTimerFinished()
 
             override fun onTick(millisUntilFinished: Long) {
+                //Log.d("Milli Until Finish", ":" + millisUntilFinished)
+
                 secondsRemaining = millisUntilFinished/1000
                 updateCountdownUI()
             }
+
         }.start()
     }
 
@@ -97,16 +143,17 @@ class MatchingGame : AppCompatActivity() {
         val minutesUntilFinished = secondsRemaining/60
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
-        textViewCountdown.text = "$minutesUntilFinished:${
-        if(secondsStr.length == 2) secondsStr
-        else "0"+secondsStr}"
-        progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
+        textViewCountdown.text = "$minutesUntilFinished:${if(secondsStr.length == 2) secondsStr else "0"+secondsStr}"
+        val progressBar = findViewById<ProgressBar>(R.id.progress_countdown)
+        progressBar.progress = (120 - (timerLengthSeconds - secondsRemaining)).toInt()
+        //Log.d("TIME", (120 - (timerLengthSeconds - secondsRemaining)).toString())
     }
 
     private fun updateButtons(){
         when (timerState){
             TimerState.Running->{
                 startButton.isEnabled = false
+                startButton.setBackgroundResource(R.color.lightBlack)
             }
             TimerState.Stopped->{
                 startButton.isEnabled = true

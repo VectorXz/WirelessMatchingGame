@@ -13,8 +13,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
 
@@ -60,20 +62,52 @@ class SelectImageLanding : AppCompatActivity() {
 
         val imgStartGameBtn: Button = findViewById(R.id.imgStartGameBtn)
         imgStartGameBtn.setOnClickListener {
-            val showIntent = Intent(this, MatchingGame::class.java)
-            showIntent.putExtra("imgThumb1", imgPath1.toString())
-            showIntent.putExtra("imgThumb2", imgPath2.toString())
-            showIntent.putExtra("imgThumb3", imgPath3.toString())
 
-            val txtImg1 = findViewById<EditText>(R.id.txtImg1)
-            val txtImg2 = findViewById<EditText>(R.id.txtImg2)
-            val txtImg3 = findViewById<EditText>(R.id.txtImg3)
+            if(checkImageUploaded()) {
+                val txtImg1 = findViewById<EditText>(R.id.txtImg1)
+                val txtImg2 = findViewById<EditText>(R.id.txtImg2)
+                val txtImg3 = findViewById<EditText>(R.id.txtImg3)
 
-            showIntent.putExtra("txtImg1", txtImg1.text.toString())
-            showIntent.putExtra("txtImg2", txtImg2.text.toString())
-            showIntent.putExtra("txtImg3", txtImg3.text.toString())
+                if (txtImg1.text.toString() == "") {
+                    val builder = AlertDialog.Builder(this@SelectImageLanding)
+                    builder.setTitle("Alert")
+                    builder.setMessage("Please input description for Image 1!")
+                    builder.setPositiveButton("OK") { dialogInterface, which ->
+                        txtImg1.requestFocus()
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+                } else if (txtImg2.text.toString() == "") {
+                    val builder = AlertDialog.Builder(this@SelectImageLanding)
+                    builder.setTitle("Alert")
+                    builder.setMessage("Please input description for Image 2!")
+                    builder.setPositiveButton("OK") { dialogInterface, which ->
+                        txtImg2.requestFocus()
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+                } else if (txtImg3.text.toString() == "") {
+                    val builder = AlertDialog.Builder(this@SelectImageLanding)
+                    builder.setTitle("Alert")
+                    builder.setMessage("Please input description for Image 3!")
+                    builder.setPositiveButton("OK") { dialogInterface, which ->
+                        txtImg1.requestFocus()
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+                } else if (txtImg1.text.toString() != "" && txtImg2.text.toString() != "" && txtImg3.text.toString() != "") {
+                    val showIntent = Intent(this, MatchingGame::class.java)
+                    showIntent.putExtra("imgThumb1", imgPath1.toString())
+                    showIntent.putExtra("imgThumb2", imgPath2.toString())
+                    showIntent.putExtra("imgThumb3", imgPath3.toString())
 
-            startActivity(showIntent)
+                    showIntent.putExtra("txtImg1", txtImg1.text.toString())
+                    showIntent.putExtra("txtImg2", txtImg2.text.toString())
+                    showIntent.putExtra("txtImg3", txtImg3.text.toString())
+
+                    startActivity(showIntent)
+                }
+            }
         }
 
         /* SELECT IMG FROM GALLERY BTN CLICKED */
@@ -93,6 +127,36 @@ class SelectImageLanding : AppCompatActivity() {
         gallBtn3.setOnClickListener {
             val pickPhoto = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(pickPhoto, 2003)
+        }
+    }
+
+    private fun checkImageUploaded(): Boolean {
+        if(!this::imgPath1.isInitialized) {
+            val builder = AlertDialog.Builder(this@SelectImageLanding)
+            builder.setTitle("Alert")
+            builder.setMessage("Please upload the 1st image!")
+            builder.setPositiveButton("OK", null)
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
+            return false
+        } else if (!this::imgPath2.isInitialized) {
+            val builder = AlertDialog.Builder(this@SelectImageLanding)
+            builder.setTitle("Alert")
+            builder.setMessage("Please upload the 2nd image!")
+            builder.setPositiveButton("OK", null)
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
+            return false
+        } else if (!this::imgPath3.isInitialized) {
+            val builder = AlertDialog.Builder(this@SelectImageLanding)
+            builder.setTitle("Alert")
+            builder.setMessage("Please upload the 3rd image!")
+            builder.setPositiveButton("OK", null)
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
+            return false
+        } else {
+            return true
         }
     }
 
@@ -169,7 +233,7 @@ class SelectImageLanding : AppCompatActivity() {
                     Glide.with(getApplicationContext()).load(imageUri).into(imgThumb2)
                     //imgThumb2.setImageURI(imageUri);
                     Log.d("[RESULT]", "4")
-                    Log.d("[2001]", "UPLOAD SUCCESSFUL!" + imageUri)
+                    Log.d("[2002]", "UPLOAD SUCCESSFUL!" + imageUri)
                     Log.d("[RESULT]", "5")
                     imgPath2 = imageUri!!
                 }
@@ -182,7 +246,7 @@ class SelectImageLanding : AppCompatActivity() {
                     Glide.with(getApplicationContext()).load(imageUri).into(imgThumb3)
                     //imgThumb3.setImageURI(imageUri);
                     Log.d("[RESULT]", "4")
-                    Log.d("[2001]", "UPLOAD SUCCESSFUL!" + imageUri)
+                    Log.d("[2003]", "UPLOAD SUCCESSFUL!" + imageUri)
                     Log.d("[RESULT]", "5")
                     imgPath3 = imageUri!!
                 }

@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.example.wirelessmatchinggame.R.drawable.defaultpic
@@ -24,10 +25,15 @@ class MatchingGame : AppCompatActivity() {
         Stopped, Running
     }
 
+    enum class GameState{
+        Stopped, Running
+    }
+
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds = 120L
     private var timerState = TimerState.Stopped
     private var secondsRemaining = 120L
+    private var gameStatus = GameState.Stopped;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,7 @@ class MatchingGame : AppCompatActivity() {
             timerState = TimerState.Running
             updateButtons()
             updateCountdownUI()
+            gameStatus = GameState.Running
         }
 
         val image1 = intent.getStringExtra("imgThumb1")
@@ -104,14 +111,27 @@ class MatchingGame : AppCompatActivity() {
                     if (buttons[i].text == buttons[lastClicked].text) {
                         count++
                         buttons[i].isClickable = false
+                        buttons[i].setBackground(BitmapDrawable(getResources(), images[i]))
+                        buttons[i].setText(images[i].toString())
                         buttons[lastClicked].isClickable = false
+                        buttons[lastClicked].setBackground(BitmapDrawable(getResources(), images[lastClicked]))
+                        buttons[lastClicked].setText(images[lastClicked].toString())
                         turnOver = false
                         clicked = 0
                         if(count == 3) {
                             Log.d("GAME STATUS", "ENDED")
                             timer.cancel()
+                            gameStatus = GameState.Stopped
+                            //TODO Alert dialog for user to input vocab (get from intent stated in Texts variable)
+                            val builder = AlertDialog.Builder(this@MatchingGame)
+                            builder.setTitle("You won!")
+                            builder.setMessage("You won this game!")
+                            builder.setPositiveButton("OK") { dialogInterface, which ->
+                                //TODO Redirect to input vocab page.
+                            }
+                            val alertDialog: AlertDialog = builder.create()
+                            alertDialog.show()
                         }
-                        //TODO Alert dialog for user to input vocab (get from intent stated in Texts variable)
                     } else {
                         //auto close card
                         Handler().postDelayed(Runnable {
@@ -137,6 +157,17 @@ class MatchingGame : AppCompatActivity() {
         progressBar.progress = 0
         timerState = TimerState.Stopped
         secondsRemaining = timerLengthSeconds
+        Log.d("Game Status", ">> "+gameStatus)
+        if(gameStatus == GameState.Running) {
+            val builder = AlertDialog.Builder(this@MatchingGame)
+            builder.setTitle("You Lose!")
+            builder.setMessage("You lose this game!")
+            builder.setPositiveButton("OK") { dialogInterface, which ->
+                //TODO Redirect to result page.
+            }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
+        }
     }
 
     private fun startTimer(){

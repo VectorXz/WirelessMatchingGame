@@ -31,11 +31,6 @@ class ViewStatistics : AppCompatActivity() {
     private lateinit var statsReference: DatabaseReference
 
     private inner class ProductViewHolder internal constructor(private val view: View) : RecyclerView.ViewHolder(view) {
-        internal fun setUser(user: String) {
-            val textView = view.findViewById<TextView>(R.id.userTxt)
-            textView.text = user
-        }
-
         internal fun setCount(count: String) {
             val textView = view.findViewById<TextView>(R.id.countTxt)
             textView.text = count+" flips"
@@ -61,7 +56,6 @@ class ViewStatistics : AppCompatActivity() {
 
     private inner class ProductFirestoreRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<Statistic>) : FirestoreRecyclerAdapter<Statistic, ProductViewHolder>(options) {
         override fun onBindViewHolder(productViewHolder: ProductViewHolder, position: Int, productModel: Statistic) {
-            productViewHolder.setUser(productModel.user)
             productViewHolder.setDateTime(productModel.date)
             productViewHolder.setCount(productModel.count)
             productViewHolder.setResult(productModel.result)

@@ -8,73 +8,67 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="410dp"
-        android:layout_height="171dp"
+        android:layout_height="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/datetimeTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="272dp"
-                android:text="datetime"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.157"
-                app:layout_constraintStart_toEndOf="@+id/userTxt"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.157" />
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
-            <TextView
-                android:id="@+id/userTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="user"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.091"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.157" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-            <TextView
-                android:id="@+id/countTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Count"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.094"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/userTxt" />
+                <TextView
+                    android:id="@+id/datetimeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="160dp"
+                    android:text="datetime" />
 
-            <TextView
-                android:id="@+id/timeTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:text="Time"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/countTxt" />
+                <TextView
+                    android:id="@+id/countTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:text="Count" />
 
-            <TextView
-                android:id="@+id/resultTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="272dp"
-                android:layout_marginTop="80dp"
-                android:text="Result"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.029"
-                app:layout_constraintStart_toEndOf="@+id/timeTxt"
-                app:layout_constraintTop_toBottomOf="@+id/datetimeTxt" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/timeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:text="Time" />
+
+                <TextView
+                    android:id="@+id/resultTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="60dp"
+                    android:text="Result" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

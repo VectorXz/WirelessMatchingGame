@@ -1,6 +1,7 @@
 package com.example.wirelessmatchinggame
 
 import android.R.attr.bitmap
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -16,12 +17,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.example.wirelessmatchinggame.R.drawable.defaultpic
+import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ServerValue
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_input_label.view.*
 import kotlinx.android.synthetic.main.activity_matching_game.*
 import java.util.Collections.addAll
 
 
 class MatchingGame : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     enum class TimerState{
         Stopped, Running
@@ -36,10 +44,23 @@ class MatchingGame : AppCompatActivity() {
     private var timerState = TimerState.Stopped
     private var secondsRemaining = 120L
     private var gameStatus = GameState.Stopped;
+    private var labelCount = 0
+
+    var db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_matching_game)
+
+        /* CHECK LOGGED IN YET ? */
+        auth = FirebaseAuth.getInstance()
+
+        val user = auth.currentUser
+
+        if(user == null) {
+            val mainIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainIntent)
+        }
 
         startButton.setOnClickListener{ v ->
             startTimer()
@@ -127,31 +148,52 @@ class MatchingGame : AppCompatActivity() {
                             .setTitle("Extra Activity - Input picture Label")
                         val mAlertDialog = mBuilder.show()
                         mDialogView.btnSubmit.setOnClickListener{
-                            mAlertDialog.dismiss()
                             val picLabel = mDialogView.txtLabel.text.toString()
                             val mbuilder = AlertDialog.Builder(this@MatchingGame)
-                            val malertDialog: AlertDialog = mbuilder.create()
-                            if(picLabel == Texts[i]){
+                            if(picLabel.toLowerCase() == Texts[i].toLowerCase()){
                                 mbuilder.setTitle("Correct Label!")
                             }else{
                                 mbuilder.setTitle("Sorry, Incorrect Label!")
                             }
-                            malertDialog.show()
-                        }
+                            labelCount++
+                            mbuilder.setPositiveButton("OK") { dialogInterface, which ->
+                                if(count == 3) {
+                                    Log.d("GAME STATUS", "ENDED")
+                                    timer.cancel()
+                                    gameStatus = GameState.Stopped
+                                    //TODO Alert dialog for user to input vocab (get from intent stated in Texts variable)
+                                    val builder = AlertDialog.Builder(this@MatchingGame)
+                                    builder.setTitle("You won!")
+                                    builder.setMessage("You won this game!")
+                                    builder.setPositiveButton("OK") { dialogInterface, which ->
+                                        //TODO Upload statistics and redirect to view statistics
+                                        val data = hashMapOf(
+                                            "user" to user?.email.toString(),
+                                            "count" to flipNo.toString(),
+                                            "time" to (timerLengthSeconds - secondsRemaining).toString(),
+                                            "result" to "win",
+                                            "date" to Timestamp.now()
+                                        )
 
-                        if(count == 3) {
-                            Log.d("GAME STATUS", "ENDED")
-                            timer.cancel()
-                            gameStatus = GameState.Stopped
-                            //TODO Alert dialog for user to input vocab (get from intent stated in Texts variable)
-                            val builder = AlertDialog.Builder(this@MatchingGame)
-                            builder.setTitle("You won!")
-                            builder.setMessage("You won this game!")
-                            builder.setPositiveButton("OK") { dialogInterface, which ->
-                                //TODO Redirect to input vocab page.
+                                        db.collection("statistics-db").document("stats").collection(user?.email.toString())
+                                            .add(data)
+                                            .addOnSuccessListener { documentReference ->
+                                                Log.d("[Firebase Add]", "Added with ID: ${documentReference.id}")
+                                            }
+                                            .addOnFailureListener { e ->
+                                                Log.w("[Firebase Add]", e)
+                                            }
+
+                                        val viewStatsIntent = Intent(this, ViewStatistics::class.java)
+                                        startActivity(viewStatsIntent)
+                                    }
+                                    val alertDialog: AlertDialog = builder.create()
+                                    alertDialog.show()
+                                }
                             }
-                            val alertDialog: AlertDialog = builder.create()
-                            alertDialog.show()
+                            val malertDialog: AlertDialog = mbuilder.create()
+                            mAlertDialog.dismiss()
+                            malertDialog.show()
                         }
                     } else {
                         //auto close card

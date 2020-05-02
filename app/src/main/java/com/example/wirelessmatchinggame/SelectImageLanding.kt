@@ -1,8 +1,10 @@
 package com.example.wirelessmatchinggame
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -15,8 +17,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
 
 
@@ -38,6 +41,7 @@ class SelectImageLanding : AppCompatActivity() {
     lateinit var imgPath2: Uri
     lateinit var imgPath3: Uri
     val maxSize = 150
+    var MY_PERMISSIONS_REQUEST_WRITE_STORAGE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,12 +179,66 @@ class SelectImageLanding : AppCompatActivity() {
             50,
             bytes
         ) // Used for compression rate of the Image : 100 means no compression
-        val path =
+        Log.d("[PERMISSION]", "START")
+        if (ContextCompat.checkSelfPermission(this@SelectImageLanding,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
 
-            Images.Media.insertImage(inContext.getContentResolver(), inImage, "xyz", null)
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@SelectImageLanding,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed, we can request the permission.
+                Log.d("[PERMISSION]", "REQUEST")
+                ActivityCompat.requestPermissions(this@SelectImageLanding,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), MY_PERMISSIONS_REQUEST_WRITE_STORAGE)
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+            Log.d("[PERMISSION]", "GRANTED")
+            val path = Images.Media.insertImage(inContext.getContentResolver(), inImage, "xyz", null)
+            return Uri.parse(path)
+        }
+        Log.d("[PERMISSION]", "END")
+        val path = Images.Media.insertImage(inContext.getContentResolver(), inImage, "xyz", null)
         return Uri.parse(path)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        Log.d("[PERMISSION]", "RESULT START")
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_WRITE_STORAGE -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Log.d("[PERMISSION]", "PERMISSION JUST GRANTED!")
+                    finish();
+                    startActivity(getIntent());
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Log.e("[PERMISSION]", "Permission denied by user")
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

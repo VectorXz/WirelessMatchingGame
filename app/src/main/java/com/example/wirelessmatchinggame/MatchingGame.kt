@@ -9,12 +9,14 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.example.wirelessmatchinggame.R.drawable.defaultpic
+import kotlinx.android.synthetic.main.activity_input_label.view.*
 import kotlinx.android.synthetic.main.activity_matching_game.*
 import java.util.Collections.addAll
 
@@ -118,6 +120,25 @@ class MatchingGame : AppCompatActivity() {
                         buttons[lastClicked].setText(images[lastClicked].toString())
                         turnOver = false
                         clicked = 0
+                        //Alert dialog when finish each picture
+                        val mDialogView = LayoutInflater.from(this).inflate(R.layout.activity_input_label, null);
+                        val mBuilder = AlertDialog.Builder(this)
+                            .setView(mDialogView)
+                            .setTitle("Extra Activity - Input picture Label")
+                        val mAlertDialog = mBuilder.show()
+                        mDialogView.btnSubmit.setOnClickListener{
+                            mAlertDialog.dismiss()
+                            val picLabel = mDialogView.txtLabel.text.toString()
+                            val mbuilder = AlertDialog.Builder(this@MatchingGame)
+                            val malertDialog: AlertDialog = mbuilder.create()
+                            if(picLabel == Texts[i]){
+                                mbuilder.setTitle("Correct Label!")
+                            }else{
+                                mbuilder.setTitle("Sorry, Incorrect Label!")
+                            }
+                            malertDialog.show()
+                        }
+
                         if(count == 3) {
                             Log.d("GAME STATUS", "ENDED")
                             timer.cancel()

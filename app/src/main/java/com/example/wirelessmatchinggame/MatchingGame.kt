@@ -145,15 +145,15 @@ class MatchingGame : AppCompatActivity() {
                         val mDialogView = LayoutInflater.from(this).inflate(R.layout.activity_input_label, null);
                         val mBuilder = AlertDialog.Builder(this)
                             .setView(mDialogView)
-                            .setTitle("Extra Activity - Input picture Label")
+                            .setTitle(getString(R.string.inputLabelHeading))
                         val mAlertDialog = mBuilder.show()
                         mDialogView.btnSubmit.setOnClickListener{
                             val picLabel = mDialogView.txtLabel.text.toString()
                             val mbuilder = AlertDialog.Builder(this@MatchingGame)
                             if(picLabel.toLowerCase() == Texts[i].toLowerCase()){
-                                mbuilder.setTitle("Correct Label!")
+                                mbuilder.setTitle(getString(R.string.correctLabel))
                             }else{
-                                mbuilder.setTitle("Sorry, Incorrect Label!")
+                                mbuilder.setTitle(getString(R.string.incorrectLabel))
                             }
                             labelCount++
                             mbuilder.setPositiveButton("OK") { dialogInterface, which ->
@@ -163,8 +163,8 @@ class MatchingGame : AppCompatActivity() {
                                     gameStatus = GameState.Stopped
                                     //TODO Alert dialog for user to input vocab (get from intent stated in Texts variable)
                                     val builder = AlertDialog.Builder(this@MatchingGame)
-                                    builder.setTitle("You won!")
-                                    builder.setMessage("You won this game!")
+                                    builder.setTitle(getString(R.string.wonHeading))
+                                    builder.setMessage(getString(R.string.wonTxt))
                                     builder.setPositiveButton("OK") { dialogInterface, which ->
                                         //TODO Upload statistics and redirect to view statistics
                                         val data = hashMapOf(
@@ -223,8 +223,8 @@ class MatchingGame : AppCompatActivity() {
         Log.d("Game Status", ">> "+gameStatus)
         if(gameStatus == GameState.Running) {
             val builder = AlertDialog.Builder(this@MatchingGame)
-            builder.setTitle("You Lose!")
-            builder.setMessage("You lose this game!")
+            builder.setTitle(getString(R.string.loseHeading))
+            builder.setMessage(getString(R.string.loseTxt))
             builder.setPositiveButton("OK") { dialogInterface, which ->
                 //TODO Redirect to result page.
             }

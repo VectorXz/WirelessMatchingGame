@@ -49,8 +49,8 @@ class CreateAccount : AppCompatActivity() {
     fun registerValidation(email: String, password: String, confirmPass: String) {
         if(email.length <= 0) {
             val builder = AlertDialog.Builder(this@CreateAccount)
-            builder.setTitle("Register")
-            builder.setMessage("Please input email!")
+            builder.setTitle(getString(R.string.registerTxt))
+            builder.setMessage(getString(R.string.pleaseInputEmail))
             builder.setPositiveButton("OK"){dialogInterface, which ->
                 regis_emailField.requestFocus()
             }
@@ -58,8 +58,8 @@ class CreateAccount : AppCompatActivity() {
             alertDialog.show()
         } else if (password.length <= 0) {
             val builder = AlertDialog.Builder(this@CreateAccount)
-            builder.setTitle("Register")
-            builder.setMessage("Please input password!")
+            builder.setTitle(getString(R.string.registerTxt))
+            builder.setMessage(getString(R.string.pleaseInputPassword))
             builder.setPositiveButton("OK"){dialogInterface, which ->
                 regis_passwordField.requestFocus()
             }
@@ -67,8 +67,8 @@ class CreateAccount : AppCompatActivity() {
             alertDialog.show()
         } else if (confirmPass.length <= 0) {
             val builder = AlertDialog.Builder(this@CreateAccount)
-            builder.setTitle("Register")
-            builder.setMessage("Please input confirm password!")
+            builder.setTitle(getString(R.string.registerTxt))
+            builder.setMessage(getString(R.string.pleaseInputCFPassword))
             builder.setPositiveButton("OK"){dialogInterface, which ->
                 regis_confirmPassField.requestFocus()
             }
@@ -76,8 +76,8 @@ class CreateAccount : AppCompatActivity() {
             alertDialog.show()
         } else if (!password.equals(confirmPass)) {
             val builder = AlertDialog.Builder(this@CreateAccount)
-            builder.setTitle("Register")
-            builder.setMessage("Password mismatch!")
+            builder.setTitle(getString(R.string.registerTxt))
+            builder.setMessage(getString(R.string.passwordMismatch))
             builder.setPositiveButton("OK"){dialogInterface, which ->
                 regis_confirmPassField.requestFocus()
             }
@@ -96,8 +96,8 @@ class CreateAccount : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val builder = AlertDialog.Builder(this@CreateAccount)
-                    builder.setTitle("Register")
-                    builder.setMessage("Registration successful!")
+                    builder.setTitle(getString(R.string.registerTxt))
+                    builder.setMessage(getString(R.string.registerSuccess))
                     builder.setPositiveButton("OK"){dialogInterface, which ->
                         //TODO redirect to login page
                         val loginIntent = Intent(this, MainActivity::class.java)
@@ -109,8 +109,8 @@ class CreateAccount : AppCompatActivity() {
                     Log.w(TAG, "createAccountWithEmail:failure", task.exception)
                     if(task.exception is FirebaseAuthWeakPasswordException) {
                         val builder = AlertDialog.Builder(this@CreateAccount)
-                        builder.setTitle("Register")
-                        builder.setMessage("Registration failed : Weak password used! Please input more than 6 characters!")
+                        builder.setTitle(getString(R.string.registerTxt))
+                        builder.setMessage(getString(R.string.badPassword))
                         builder.setPositiveButton("OK"){dialogInterface, which ->
                             regis_passwordField.requestFocus()
                         }
@@ -118,8 +118,8 @@ class CreateAccount : AppCompatActivity() {
                         alertDialog.show()
                     } else {
                         val builder = AlertDialog.Builder(this@CreateAccount)
-                        builder.setTitle("Register")
-                        builder.setMessage("Registration failed!")
+                        builder.setTitle(getString(R.string.registerTxt))
+                        builder.setMessage(getString(R.string.registerFailed))
                         builder.setPositiveButton("OK"){dialogInterface, which ->
                             regis_emailField.requestFocus()
                         }

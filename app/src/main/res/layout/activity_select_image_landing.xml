@@ -11,12 +11,13 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:text="SELECT YOUR IMAGE TO DO MATCHING"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/kanit"
+        android:text="@string/instructionTxt"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +25,8 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SELECTED IMAGE (REQUIRED 3 IMAGES) "
+        android:fontFamily="@font/kanit"
+        android:text="@string/instruction2Txt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="What's it ?"
+                    android:fontFamily="@font/kanit"
+                    android:hint="@string/labelHintTxt"
                     android:inputType="textPersonName"
                     android:textAlignment="textStart" />
 
@@ -109,7 +112,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="What's it ?"
+                    android:fontFamily="@font/kanit"
+                    android:hint="@string/labelHintTxt"
                     android:inputType="textPersonName"
                     android:textAlignment="textStart" />
 
@@ -151,7 +155,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="What's it ?"
+                    android:fontFamily="@font/kanit"
+                    android:hint="@string/labelHintTxt"
                     android:inputType="textPersonName"
                     android:textAlignment="textStart" />
 
@@ -177,7 +182,8 @@
         android:id="@+id/imgStartGameBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START GAME!"
+        android:fontFamily="@font/kanit"
+        android:text="@string/startgameTxt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

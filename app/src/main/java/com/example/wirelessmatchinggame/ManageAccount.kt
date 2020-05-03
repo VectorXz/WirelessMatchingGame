@@ -97,18 +97,18 @@ class ManageAccount : AppCompatActivity() {
 
     fun updateValidation(email: String, oldPass: String, newPass: String, cfNewPass: String) {
         if(email.length <= 0) {
-            Toast.makeText(this, "Error retrieving email address, please contact administrator!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.errorLoadingInfo), Toast.LENGTH_SHORT).show()
         } else if (oldPass.length <= 0) {
-            Toast.makeText(this, "Please input old password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.oldPassNull), Toast.LENGTH_SHORT).show()
             edit_passwordField.requestFocus()
         } else if (newPass.length <= 0) {
-            Toast.makeText(this, "Please input new password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.newPassNull), Toast.LENGTH_SHORT).show()
             edit_newpassfield.requestFocus()
         } else if (cfNewPass.length <= 0) {
-            Toast.makeText(this, "Please input confirm new pass", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.confirmNewPassNull), Toast.LENGTH_SHORT).show()
             edit_cfnewpassfield.requestFocus()
         } else if (!newPass.equals(cfNewPass)) {
-            Toast.makeText(this, "Confirmation of the new password mismatch!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.confirmNewPassMismatch), Toast.LENGTH_SHORT).show()
             edit_cfnewpassfield.requestFocus()
         }
         else {
@@ -131,8 +131,8 @@ class ManageAccount : AppCompatActivity() {
                                 if (task.isSuccessful())
                                 {
                                     val builder = AlertDialog.Builder(this@ManageAccount)
-                                    builder.setTitle("Change Password")
-                                    builder.setMessage("Password Updated!")
+                                    builder.setTitle(getString(R.string.changePasswordTxt))
+                                    builder.setMessage(getString(R.string.passwordUpdate))
                                     builder.setPositiveButton("OK"){dialogInterface, which ->
                                         finish();
                                         startActivity(getIntent());
@@ -143,8 +143,8 @@ class ManageAccount : AppCompatActivity() {
                                 else
                                 {
                                     val builder = AlertDialog.Builder(this@ManageAccount)
-                                    builder.setTitle("Change Password")
-                                    builder.setMessage("Password Update Failed!")
+                                    builder.setTitle(getString(R.string.changePasswordTxt))
+                                    builder.setMessage(getString(R.string.passwordUpdateFailed))
                                     builder.setPositiveButton("OK"){dialogInterface, which ->
                                         Toast.makeText(applicationContext,"Please try again",Toast.LENGTH_LONG).show()
                                     }
@@ -157,10 +157,10 @@ class ManageAccount : AppCompatActivity() {
                     else
                     {
                         val builder = AlertDialog.Builder(this@ManageAccount)
-                        builder.setTitle("Change Password")
-                        builder.setMessage("Authentication failed!")
+                        builder.setTitle(getString(R.string.changePasswordTxt))
+                        builder.setMessage(getString(R.string.authenticationFailed))
                         builder.setPositiveButton("OK"){dialogInterface, which ->
-                            Toast.makeText(applicationContext,"Please try again",Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext,getString(R.string.tryAgain),Toast.LENGTH_LONG).show()
                         }
                         val alertDialog: AlertDialog = builder.create()
                         alertDialog.show()

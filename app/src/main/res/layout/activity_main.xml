@@ -17,9 +17,10 @@
         android:autofillHints=""
         android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
+        android:fontFamily="@font/kanit"
         android:hint="@string/emailTxt"
-        android:padding="10dp"
         android:inputType="textPersonName"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -31,6 +32,7 @@
         android:layout_marginBottom="196dp"
         android:ems="10"
         android:hint="@string/passwordTxt"
+        android:fontFamily="@font/kanit"
         android:background="@drawable/edittext_rounded_corners"
         android:padding="10dp"
         android:inputType="textPassword"
@@ -43,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/kanit"
         android:text="@string/emailTxt"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_emailField"
@@ -56,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/kanit"
         android:text="@string/passwordTxt"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_passwordField"
@@ -72,6 +76,7 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="#1fcecb"
         android:text="@string/loginTxt"
+        android:fontFamily="@font/kanit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +90,7 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="#F9A602"
         android:text="@string/registerTxt"
+        android:fontFamily="@font/kanit"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +105,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
         android:text="@string/noaccTxt"
+        android:fontFamily="@font/kanit"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/login_regisBtn"
         app:layout_constraintStart_toStartOf="@+id/login_regisBtn"
@@ -117,5 +124,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.598"
         app:srcCompat="@drawable/matching_game_logo" />
+
+    <ImageButton
+        android:id="@+id/langThBtn"
+        android:layout_width="61dp"
+        android:layout_height="54dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/thai" />
+
+    <ImageButton
+        android:id="@+id/langUsBtn"
+        android:layout_width="61dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toEndOf="@+id/langThBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/usa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

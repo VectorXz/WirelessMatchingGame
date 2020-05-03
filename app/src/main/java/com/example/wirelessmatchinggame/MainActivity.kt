@@ -1,16 +1,22 @@
 package com.example.wirelessmatchinggame
 
+import android.annotation.TargetApi
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.Toast
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+
 
 private const val TAG = "MainActivity"
 
@@ -37,6 +43,36 @@ class MainActivity : AppCompatActivity() {
             val password = login_passwordField.text.toString()
             login(email, password)
         }
+
+        val langThBtn: ImageButton = findViewById(R.id.langThBtn)
+        langThBtn.setOnClickListener {
+            Log.d("LANG","TH Btn clicked!")
+            setLocate("th")
+            recreate()
+        }
+
+        val langUsBtn: ImageButton = findViewById(R.id.langUsBtn)
+        langUsBtn.setOnClickListener {
+            Log.d("LANG","US Btn clicked!")
+            setLocate("us")
+            recreate()
+        }
+    }
+
+    private fun setLocate(Lang: String) {
+
+        val locale = Locale(Lang)
+
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+
+        config.locale = locale
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+
+        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+        editor.putString("My_Lang", Lang)
+        editor.apply()
     }
 
     public override fun onStart() {
@@ -58,8 +94,8 @@ class MainActivity : AppCompatActivity() {
     fun loginValidation(email: String, password: String): Boolean {
         if(email.length <= 0) {
             val builder = AlertDialog.Builder(this@MainActivity)
-            builder.setTitle("Login")
-            builder.setMessage("Please input email!")
+            builder.setTitle(getString(R.string.loginTxt))
+            builder.setMessage(getString(R.string.emailNullAlert))
             builder.setPositiveButton("OK"){dialogInterface, which ->
                 login_emailField.requestFocus()
             }
@@ -68,8 +104,8 @@ class MainActivity : AppCompatActivity() {
             return false
         } else if(password.length <= 0) {
             val builder = AlertDialog.Builder(this@MainActivity)
-            builder.setTitle("Login")
-            builder.setMessage("Please input password!")
+            builder.setTitle(getString(R.string.loginTxt))
+            builder.setMessage(getString(R.string.passwordNullAlert))
             builder.setPositiveButton("OK"){dialogInterface, which ->
                 login_passwordField.requestFocus()
             }
@@ -89,8 +125,8 @@ class MainActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         //TODO Login success -> Redirect to game page
                         val builder = AlertDialog.Builder(this@MainActivity)
-                        builder.setTitle("Login")
-                        builder.setMessage("Authentication success!")
+                        builder.setTitle(getString(R.string.loginTxt))
+                        builder.setMessage(getString(R.string.loginSuccess))
                         builder.setPositiveButton("OK"){dialogInterface, which ->
                             val homeIntent = Intent(this, HomeActivity::class.java)
                             startActivity(homeIntent)
@@ -102,8 +138,8 @@ class MainActivity : AppCompatActivity() {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         if(task.exception is FirebaseAuthInvalidCredentialsException) {
                             val builder = AlertDialog.Builder(this@MainActivity)
-                            builder.setTitle("Login")
-                            builder.setMessage("Authentication Failed : Invalid Password!")
+                            builder.setTitle(getString(R.string.loginTxt))
+                            builder.setMessage(getString(R.string.loginFailedInvalidPass))
                             builder.setPositiveButton("OK"){dialogInterface, which ->
                                 login_passwordField.requestFocus()
                             }
@@ -111,8 +147,8 @@ class MainActivity : AppCompatActivity() {
                             alertDialog.show()
                         } else if (task.exception is FirebaseAuthInvalidUserException) {
                             val builder = AlertDialog.Builder(this@MainActivity)
-                            builder.setTitle("Login")
-                            builder.setMessage("Authentication Failed : Account does not exists!")
+                            builder.setTitle(getString(R.string.loginTxt))
+                            builder.setMessage(getString(R.string.loginFailedNoAccount))
                             builder.setPositiveButton("OK"){dialogInterface, which ->
                                 login_emailField.requestFocus()
                             }
@@ -120,8 +156,8 @@ class MainActivity : AppCompatActivity() {
                             alertDialog.show()
                         } else {
                             val builder = AlertDialog.Builder(this@MainActivity)
-                            builder.setTitle("Login")
-                            builder.setMessage("Authentication Failed!")
+                            builder.setTitle(getString(R.string.loginTxt))
+                            builder.setMessage(getString(R.string.loginFailed))
                             builder.setPositiveButton("OK"){dialogInterface, which ->
                                 login_emailField.requestFocus()
                             }

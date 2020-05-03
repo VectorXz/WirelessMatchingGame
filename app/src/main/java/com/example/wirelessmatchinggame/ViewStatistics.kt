@@ -35,7 +35,7 @@ class ViewStatistics : AppCompatActivity() {
     private inner class ProductViewHolder internal constructor(private val view: View) : RecyclerView.ViewHolder(view) {
         internal fun setCount(count: String) {
             val textView = view.findViewById<TextView>(R.id.countTxt)
-            textView.text = count+" flips"
+            textView.text = count+" "+getString(R.string.flips)
         }
 
         internal fun setResult(result: String) {
@@ -45,7 +45,7 @@ class ViewStatistics : AppCompatActivity() {
 
         internal fun setTime(time: String) {
             val textView = view.findViewById<TextView>(R.id.timeTxt)
-            textView.text = time+" seconds"
+            textView.text = time+" "+getString(R.string.seconds)
         }
 
         internal fun setDateTime(dateTime: Timestamp) {
@@ -123,13 +123,13 @@ class ViewStatistics : AppCompatActivity() {
         recView.adapter = adapter
 
         val graph = findViewById<GraphViewXML>(R.id.graphViewXML)
-        val data1 = arrayOf ( DataPoint(0.12, 3.22) , DataPoint(0.22,0.69) , DataPoint(0.3,0.69) , DataPoint(0.4,0.69) , DataPoint(0.5,0.69))
+        val data1 = arrayOf ( DataPoint(0.00, 0.00) , DataPoint(1.00,0.00) , DataPoint(2.00,0.00) , DataPoint(3.00,0.00) , DataPoint(4.00,0.00))
 
 
         db.collection("statistics-db").document("stats").collection(user?.email.toString()).orderBy("date", Query.Direction.DESCENDING).limit(5)
             .get()
             .addOnSuccessListener { result ->
-                var i = 0
+                var i = 4
                 for (document in result) {
                     Log.d("ViewStatistics", "document data >> "+ document.data)
                     val regex = "([0-9]+)".toRegex()
@@ -141,16 +141,16 @@ class ViewStatistics : AppCompatActivity() {
                     Log.d("I", i.toString())
                     data1.set(i, DataPoint(i.toDouble() , document.data.get("time").toString().toDouble()) )
                     Log.d("ViewStatistics", "document data >> "+ netDate + " = " + document.data.get("time").toString().toDouble())
-                    i++
+                    i--
                 }
                 val seriesD = LineGraphSeries<DataPoint>(data1);
                 graph.removeAllSeries()
                 graph.addSeries(seriesD)
+                seriesD.setTitle("Time");
+                seriesD.setDrawDataPoints(true);
+                seriesD.setDataPointsRadius(10.toFloat());
+                seriesD.setThickness(8);
 
-                //graph.getGridLabelRenderer().setLabelFormatter(DateAsXAxisLabelFormatter(this@ViewStatistics));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(5); // only 4 because of the space
-                graph.getViewport().setXAxisBoundsManual(true);
-                graph.getGridLabelRenderer().setHumanRounding(false);
             }
             .addOnFailureListener { exception ->
                 Log.w("ViewStatistics", "Error getting documents.", exception)

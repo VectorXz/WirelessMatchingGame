@@ -28,7 +28,8 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Statistics Report"
+                android:fontFamily="@font/kanit"
+                android:text="@string/statisticsHeadingTxt"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +47,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11"
                 app:seriesColor="#00cc00"
-                app:seriesData="0=5;2=5;3=0;4=2"
-                app:seriesTitle="Foobar"
+                app:seriesData="0=0;1=0;2=0;3=0;4=0"
+                app:seriesTitle="Time"
                 app:seriesType="line" />
 
             <androidx.recyclerview.widget.RecyclerView

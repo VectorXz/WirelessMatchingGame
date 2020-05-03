@@ -1,12 +1,17 @@
 package com.example.wirelessmatchinggame
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
@@ -69,5 +74,35 @@ class HomeActivity : AppCompatActivity() {
             false
         }
 
+        val langThBtn: ImageButton = findViewById(R.id.langThBtn2)
+        langThBtn.setOnClickListener {
+            Log.d("LANG","TH Btn clicked!")
+            setLocate("th")
+            recreate()
+        }
+
+        val langUsBtn: ImageButton = findViewById(R.id.langUsBtn2)
+        langUsBtn.setOnClickListener {
+            Log.d("LANG","US Btn clicked!")
+            setLocate("us")
+            recreate()
+        }
+
+    }
+
+    private fun setLocate(Lang: String) {
+
+        val locale = Locale(Lang)
+
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+
+        config.locale = locale
+        baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+
+        val editor = getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+        editor.putString("My_Lang", Lang)
+        editor.apply()
     }
 }

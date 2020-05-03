@@ -24,6 +24,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageButton
+                android:id="@+id/langThBtn2"
+                android:layout_width="61dp"
+                android:layout_height="54dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.023"
+                app:srcCompat="@drawable/thai" />
+
+            <ImageButton
+                android:id="@+id/langUsBtn2"
+                android:layout_width="61dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="216dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.254"
+                app:layout_constraintStart_toEndOf="@+id/langThBtn2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/usa" />
+
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
@@ -33,14 +61,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_bias="0.216"
                 app:srcCompat="@drawable/matching_game_logo" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome"
+                android:fontFamily="@font/kanit"
+                android:text="@string/welcomeTxt"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +82,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Guest"
+                android:fontFamily="@font/kanit"
+                android:text="@string/guestTxt"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Start Game!"
+                android:fontFamily="@font/kanit"
+                android:text="@string/startgameTxt"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

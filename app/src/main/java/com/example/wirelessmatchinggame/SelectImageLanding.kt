@@ -74,8 +74,8 @@ class SelectImageLanding : AppCompatActivity() {
 
                 if (txtImg1.text.toString() == "") {
                     val builder = AlertDialog.Builder(this@SelectImageLanding)
-                    builder.setTitle("Alert")
-                    builder.setMessage("Please input description for Image 1!")
+                    builder.setTitle(getString(R.string.alert))
+                    builder.setMessage(getString(R.string.inputLabel1))
                     builder.setPositiveButton("OK") { dialogInterface, which ->
                         txtImg1.requestFocus()
                     }
@@ -83,8 +83,8 @@ class SelectImageLanding : AppCompatActivity() {
                     alertDialog.show()
                 } else if (txtImg2.text.toString() == "") {
                     val builder = AlertDialog.Builder(this@SelectImageLanding)
-                    builder.setTitle("Alert")
-                    builder.setMessage("Please input description for Image 2!")
+                    builder.setTitle(getString(R.string.alert))
+                    builder.setMessage(getString(R.string.inputLabel2))
                     builder.setPositiveButton("OK") { dialogInterface, which ->
                         txtImg2.requestFocus()
                     }
@@ -92,8 +92,8 @@ class SelectImageLanding : AppCompatActivity() {
                     alertDialog.show()
                 } else if (txtImg3.text.toString() == "") {
                     val builder = AlertDialog.Builder(this@SelectImageLanding)
-                    builder.setTitle("Alert")
-                    builder.setMessage("Please input description for Image 3!")
+                    builder.setTitle(getString(R.string.alert))
+                    builder.setMessage(getString(R.string.inputLabel3))
                     builder.setPositiveButton("OK") { dialogInterface, which ->
                         txtImg1.requestFocus()
                     }
@@ -137,24 +137,24 @@ class SelectImageLanding : AppCompatActivity() {
     private fun checkImageUploaded(): Boolean {
         if(!this::imgPath1.isInitialized) {
             val builder = AlertDialog.Builder(this@SelectImageLanding)
-            builder.setTitle("Alert")
-            builder.setMessage("Please upload the 1st image!")
+            builder.setTitle(getString(R.string.alert))
+            builder.setMessage(getString(R.string.uploadImage1))
             builder.setPositiveButton("OK", null)
             val alertDialog: AlertDialog = builder.create()
             alertDialog.show()
             return false
         } else if (!this::imgPath2.isInitialized) {
             val builder = AlertDialog.Builder(this@SelectImageLanding)
-            builder.setTitle("Alert")
-            builder.setMessage("Please upload the 2nd image!")
+            builder.setTitle(getString(R.string.alert))
+            builder.setMessage(getString(R.string.uploadImage2))
             builder.setPositiveButton("OK", null)
             val alertDialog: AlertDialog = builder.create()
             alertDialog.show()
             return false
         } else if (!this::imgPath3.isInitialized) {
             val builder = AlertDialog.Builder(this@SelectImageLanding)
-            builder.setTitle("Alert")
-            builder.setMessage("Please upload the 3rd image!")
+            builder.setTitle(getString(R.string.alert))
+            builder.setMessage(getString(R.string.uploadImage3))
             builder.setPositiveButton("OK", null)
             val alertDialog: AlertDialog = builder.create()
             alertDialog.show()
